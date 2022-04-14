@@ -73,6 +73,20 @@ class ApiTest extends WebTestCase
         $this->assertEquals(['delete' => 'ok'], $responseData);
     }
     
+    public function testApiAddToCart(): void
+    {
+        $client = static::createClient();
+        // Request a specific page
+        $IDProduct = "61";
+        $client->jsonRequest('POST', '/api/cart/'.$IDProduct, ['quantity' => 1]);
+        $response = $client->getResponse();
+        $this->assertResponseIsSuccessful();
+        $this->assertJson($response->getContent());
+        $responseData = json_decode($response->getContent(), true);
+    
+        $this->assertEquals(['id' => 1, 'products' => ['id' => 61, 'name'=> 'Rick Sanchez', 'price' => 8, 'quantity' => 20, 'image' => 'https:\/\/rickandmorty.com\/api\/character\/avatar\/1.jpg']], $responseData);
+    }
+    
     public function testApiGetCart(): void
     {
         $client = static::createClient();
@@ -80,28 +94,12 @@ class ApiTest extends WebTestCase
         $client->jsonRequest('GET', '/api/cart/');
         $response = $client->getResponse();
         $this->assertResponseIsUnprocessable();
-        // $this->assertJson($response->getContent());
-        // $responseData = json_decode($response->getContent(), true);
-        //ToCheck
-        //$this->assertEquals($HERE, $responseData);
-    }
-    
-    public function testApiAddToCart(): void
-    {
-        $client = static::createClient();
-        // Request a specific page
-        $IDProduct = "15";
-        $client->jsonRequest('POST', '/api/cart/'.$IDProduct);
-        $response = $client->getResponse();
-        $this->assertResponseIsSuccessful();
         $this->assertJson($response->getContent());
         $responseData = json_decode($response->getContent(), true);
         //ToCheck
-        echo "RESULT";
-        echo $response->getContent();
-        $this->assertEquals([], $responseData);
+        $this->assertEquals('products' => {['id' => 61, 'name'=> 'Rick Sanchez', 'price' => 8, 'quantity' => 20, 'image' => 'https:\/\/rickandmorty.com\/api\/character\/avatar\/1.jpg']}, $responseData);
     }
-    
+
     public function testApiDeleteToCart(): void
     {
         $client = static::createClient();
@@ -113,6 +111,6 @@ class ApiTest extends WebTestCase
         $this->assertJson($response->getContent());
         $responseData = json_decode($response->getContent(), true);
         //ToCheck
-        //$this->assertEquals($HERE, $responseData);
+        $this->assertEquals(['id' => 1, 'products' => {}], $responseData);
     }
 }
