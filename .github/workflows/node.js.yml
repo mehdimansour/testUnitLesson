@@ -13,6 +13,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Front
     strategy:
       matrix:
         node-version: [16.x]
@@ -22,9 +25,8 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        working-directory: ./Front
         node-version: ${{ matrix.node-version }}
-        cache-dependency-path: Front/package-lock.json
+        cache-dependency-path: ./Front/package-lock.json
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
