@@ -30,3 +30,15 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - name: Cypress run
+      uses: cypress-io/github-action@v2.9.7
+      with:
+        install: false
+        start: yarn start:ci
+        wait-on: 'http://localhost:3000'
+        wait-on-timeout: 120
+        browser: chrome
+        record: true
+        parallel: true
+        group: 'UI - Chrome'
+        spec: cypress/integration/cy1.spec.js
