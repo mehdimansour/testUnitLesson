@@ -2,7 +2,7 @@ import React from "react";
 import useCart from "../hooks/useCart";
 
 const Cart = ({ setRoute }: { setRoute: (data: any) => void }) => {
-  const { loading, products, message, loadCart, removeToCart } = useCart();
+  const { loading, products, message, removeToCart } = useCart();
   return (
     <div>
       {loading && <div>Loading....</div>}
