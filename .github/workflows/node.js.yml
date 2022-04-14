@@ -34,7 +34,7 @@ jobs:
       uses: cypress-io/github-action@v2.9.7
       with:
         working-directory: ./Front
-        start: yarn cy:run
+        start: npm run cy:run
         wait-on: 'http://localhost:3000'
         wait-on-timeout: 120
         browser: chrome
