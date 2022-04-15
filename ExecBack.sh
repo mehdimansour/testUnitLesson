@@ -10,4 +10,4 @@ docker-compose exec -T app php bin/console doctrine:database:drop --force --env=
 docker-compose exec -T app php bin/console doctrine:database:create --env=test
 docker-compose exec -T app php bin/console doctrine:migrations:migrate -n --env=test
 docker-compose exec -T app ./vendor/bin/phpunit
-docker-compose exec -T app XDEBUG_MODE=coverage ./vendor/bin/phpunit  --coverage-text=out/coverage.txt
+docker exec -e XDEBUG_MODE=coverage php-app vendor/bin/phpunit --coverage-text
