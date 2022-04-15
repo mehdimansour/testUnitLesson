@@ -22,6 +22,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
     - uses: actions/checkout@v3
+    - name: run back end test
+    - run: ./ExecBack.sh
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -36,6 +38,7 @@ jobs:
           CYPRESS_host: http://localhost
           CYPRESS_port: 3000
       with:
+        working-directory: ./Front
         start: npm run start
         wait-on: http://localhost:3000
         wait-on-timeout: 120
