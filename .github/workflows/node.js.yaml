@@ -22,8 +22,6 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
     - uses: actions/checkout@v3
-    - name : launch BackEnd
-      run : ./ExecBack.sh
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -32,19 +30,17 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - run: npm start
     - name: Cypress run
       uses: cypress-io/github-action@v2.9.7
       env:
-          CYPRESS_host: http://api.dev.local
+          CYPRESS_host: http://localhost
           CYPRESS_port: 3000
       with:
-        install: false
         start: npm run start
+        wait-on: http://localhost:3000
         wait-on-timeout: 120
         browser: chrome
         headless: true
-        record: true
         spec: cypress/integration/cy1.spec.js
         
         
