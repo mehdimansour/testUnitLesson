@@ -30,15 +30,14 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - run: npm start
     - name: Cypress run
       uses: cypress-io/github-action@v2.9.7
       env:
-          CYPRESS_host: http://api.dev.local
+          CYPRESS_host: http://localhost
           CYPRESS_port: 3000
       with:
         start: npm run start
-        wait-on: http://api.dev.local:3000
+        wait-on: http://localhost:3000
         wait-on-timeout: 120
         browser: chrome
         headless: true
