@@ -30,10 +30,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache-dependency-path: ./Front/package-lock.json
-        working-directory: ./Front
+        # working-directory: ./Front
     - run: npm ci
+      working-directory: ./Front
     - run: npm run build --if-present
+      working-directory: ./Front
     - run: npm test
+      working-directory: ./Front
     - name: Cypress run
       uses: cypress-io/github-action@v2.9.7
       env:
