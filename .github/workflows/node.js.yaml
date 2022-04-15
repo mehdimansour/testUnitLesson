@@ -39,16 +39,12 @@ jobs:
       working-directory: ./Front
     - name: Cypress run
       uses: cypress-io/github-action@v2.9.7
-      env:
-          CYPRESS_host: http://localhost
-          CYPRESS_port: 3000
       with:
         working-directory: ./Front
-        start: npm run start
+        start: npm start
         wait-on: http://localhost:3000
         wait-on-timeout: 120
         browser: chrome
         headless: true
+        config: baseUrl=https://localhost:3000/
         spec: cypress/integration/cy1.spec.js
-        
-        
