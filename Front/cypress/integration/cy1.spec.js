@@ -8,20 +8,25 @@
 
 describe("Rick Sanchez Cypress Test", () => {
 
+    beforeEach(() => {
+        // cy.visit();
+        cy.visit(Cypress.env("host")+ ":" + Cypress.env("port") );
+    })
+
     it("Test Products", () => {
-      cy.visit("http://localhost:3000/");
+      
       cy.get("img").should("have.length",20);
     });
 
     it("Test Selected One Product", ()=>{
-        cy.visit("http://localhost:3000/");
+        
         cy.get("img").first().click();
         cy.get("img").should("have.length",1);
         cy.get("input").should("have.length",1);
     });
 
     it("Test Select One Product and Add Quantity", ()=>{
-        cy.visit("http://localhost:3000/");
+        
         cy.get("img").first().click();
         cy.get("input").type("5");
         cy.get("button").click();
@@ -29,7 +34,7 @@ describe("Rick Sanchez Cypress Test", () => {
     });
 
     it("Test Cart Has the Selected Entity",()=>{
-        cy.visit("http://localhost:3000/");
+        
         cy.contains("Aller sur panier").click();
         cy.get("img").should("have.length.at.least",1);
         cy.get("input").should("have.length",0);
@@ -38,7 +43,7 @@ describe("Rick Sanchez Cypress Test", () => {
     });
 
     it("Test Delete Element From Cart",()=> {
-        cy.visit("http://localhost:3000/");
+        
         cy.contains("Aller sur panier").click();
         cy.get("button").click();
 
