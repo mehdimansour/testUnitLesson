@@ -1,6 +1,6 @@
 #!/bin/bash
 cd Back
-$VARIA = pwd
+
 docker-compose build
 docker-compose up -d
 docker-compose exec -T app "composer install"
